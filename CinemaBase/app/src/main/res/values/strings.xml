@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CinemaBase</string>
+    <string name="Movies">Movies</string>
+    <string name="NowPlayingMovies">Recent Movies</string>
+    <string name="PopularMovies">Popular Movies</string>
+    <string name="PopularTvShows">Popular Tv Shows</string>
+    <string name="TopRatedMovies">Top Rated Movies</string>
+    <string name="UpcomingMovies">Upcoming Movies</string>
+    <string name="TopRatedTvShows">Top Rated TV Shows</string>
+
+</resources>
