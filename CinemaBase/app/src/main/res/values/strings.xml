@@ -7,5 +7,7 @@
     <string name="TopRatedMovies">Top Rated Movies</string>
     <string name="UpcomingMovies">Upcoming Movies</string>
     <string name="TopRatedTvShows">Top Rated TV Shows</string>
+    <string name="dummytext">Curabitur in feugiat justo. Etiam pellentesque molestie ipsum, sed volutpat elit pretium eget. Fusce congue mi ac vestibulum pulvinar. Sed aliquet libero nec diam scelerisque, at finibus neque semper. Praesent sagittis finibus interdum. Curabitur ut diam sit amet dolor elementum pulvinar. Mauris tempor quis libero nec pretium. Sed porta maximus volutpat. Suspendisse porta finibus tincidunt. Fusce bibendum ligula sit amet neque aliquet faucibus. Vestibulum at nisl accumsan, viverra turpis ac, sagittis ipsum.</string>
+    <string name="NoDataAvailable">No Data Available \n check your internet connection</string>
 
 </resources>

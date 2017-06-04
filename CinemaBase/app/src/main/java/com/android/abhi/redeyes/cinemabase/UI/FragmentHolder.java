@@ -11,12 +11,13 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.android.abhi.redeyes.cinemabase.R;
-import com.android.abhi.redeyes.cinemabase.UI.fragment.SingleInstaceMovieFragment;
+import com.android.abhi.redeyes.cinemabase.UI.fragments.SingleInstaceMovieFragment;
 
-import static com.android.abhi.redeyes.cinemabase.UI.fragment.SingleInstaceMovieFragment.POPULAR_MOVIES;
-import static com.android.abhi.redeyes.cinemabase.UI.fragment.SingleInstaceMovieFragment.RECENT_MOVIES;
-import static com.android.abhi.redeyes.cinemabase.UI.fragment.SingleInstaceMovieFragment.TOPRATED_MOVIES;
-import static com.android.abhi.redeyes.cinemabase.UI.fragment.SingleInstaceMovieFragment.UPCOMING_MOVIES;
+import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.POPULAR_MOVIES;
+import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.RECENT_MOVIES;
+import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.TOPRATED_MOVIES;
+import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.UPCOMING_MOVIES;
+
 
 public class FragmentHolder extends AppCompatActivity {
 

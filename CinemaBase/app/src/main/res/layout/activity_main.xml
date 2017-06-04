@@ -6,6 +6,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
+   <LinearLayout
+       android:id="@+id/configureAppLayout"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:visibility="gone"
+       android:orientation="vertical">
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:text="@string/app_name"
+           android:background="@color/colorAccent"
+           android:gravity="center"
+           android:textColor="@color/colorPrimary"
+           android:textSize="32sp"
+           android:lines="1"
+           android:textStyle="bold"
+           android:elevation="32dp"/>
+
+   </LinearLayout>
 
 <include layout="@layout/customtoolbar" />
 

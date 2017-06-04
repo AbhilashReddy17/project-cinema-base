@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.android.abhi.redeyes.cinemabase.R;
-import com.android.abhi.redeyes.cinemabase.UI.fragment.SingleInstanceTVShowFragment;
+import com.android.abhi.redeyes.cinemabase.UI.fragments.SingleInstanceTVShowFragment;
 
 /**
  * Created by Abhilash Reddy on 6/1/2017.

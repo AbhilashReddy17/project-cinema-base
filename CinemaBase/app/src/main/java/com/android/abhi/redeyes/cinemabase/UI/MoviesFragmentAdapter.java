@@ -6,10 +6,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.android.abhi.redeyes.cinemabase.R;
-import com.android.abhi.redeyes.cinemabase.UI.fragment.SingleInstaceMovieFragment;
+import com.android.abhi.redeyes.cinemabase.UI.fragments.SingleInstaceMovieFragment;
 
-import static com.android.abhi.redeyes.cinemabase.UI.fragment.SingleInstaceMovieFragment.MOVIES;
-
+import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.MOVIES;
 
 /**
  * Created by Abhilash Reddy on 5/31/2017.
