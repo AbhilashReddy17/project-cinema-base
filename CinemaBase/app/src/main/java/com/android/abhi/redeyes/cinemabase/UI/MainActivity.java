@@ -1,6 +1,9 @@
 package com.android.abhi.redeyes.cinemabase.UI;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.abhi.redeyes.cinemabase.R;
 import com.android.abhi.redeyes.cinemabase.model.DataModel;
@@ -41,9 +45,21 @@ public class MainActivity extends AppCompatActivity {
         //configuring all required viems and assignments.
         configureViews();
 
-        //loading movies into the model
-        checkAsynkTask task = new checkAsynkTask();
-        task.execute();
+        if(!isNetworkAvailable()){
+           DataModel.TVShows.mpopularTvShows =null;
+            DataModel.TVShows.mtopRatedTvShows =null;
+
+            DataModel.DBMovies.mpopularMovies = null;
+            DataModel.DBMovies.mrecentMovies = null;
+            DataModel.DBMovies.mtopratedmovies =null;
+            DataModel.DBMovies.mupcomingMovies =null;
+            Toast.makeText(this, getResources().getString(R.string.NoDataAvailable), Toast.LENGTH_LONG).show();
+        }
+        else{
+            //loading movies into the model
+            checkAsynkTask task = new checkAsynkTask();
+            task.execute();
+        }
 
         final FragmentManager manager = getSupportFragmentManager();
         final ViewPager pager = (ViewPager) findViewById(R.id.mainactivity_viewpager);
@@ -79,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private boolean isNetworkAvailable() {
+        // checking if device has access to internet
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
     }
 
     private void configureViews() {
