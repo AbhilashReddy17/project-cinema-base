@@ -28,7 +28,7 @@ public class MoviesFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch(position){
+        switch (position) {
             case MOVIES:
                 return mfragmentInstance.singleInstaceFragment(MOVIES);
 
@@ -42,9 +42,9 @@ public class MoviesFragmentAdapter extends FragmentStatePagerAdapter {
         return 1;
     }
 
-        @Override
+    @Override
     public CharSequence getPageTitle(int position) {
-        switch(position){
+        switch (position) {
             case MOVIES:
                 return context.getResources().getString(R.string.Movies);
             default:

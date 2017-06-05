@@ -27,28 +27,28 @@ public class RecentMoviesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.recyclerview_movies,container,false);
+        View view = inflater.inflate(R.layout.recyclerview_movies, container, false);
 
         TextView emptyview = (TextView) view.findViewById(R.id.empty_view);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_movies);
-        if(DataModel.DBMovies.mrecentMovies !=null) {
+        if (DataModel.DBMovies.mrecentMovies != null) {
             recyclerView.setVisibility(View.VISIBLE);
             emptyview.setVisibility(View.GONE);
             MoviesRecyclerViewAdapter adapter = new MoviesRecyclerViewAdapter(getActivity(), RECENT_MOVIES);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
             recyclerView.setAdapter(adapter);
-        }else {
-            if(DataModel.DBMovies_Offline.mrecentMovies_offlinedata != null){
+        } else {
+            if (DataModel.DBMovies_Offline.mrecentMovies_offlinedata != null) {
                 recyclerView.setVisibility(View.VISIBLE);
                 emptyview.setVisibility(View.GONE);
-                Offlinedata_recyclerviewAdapter adapter = new Offlinedata_recyclerviewAdapter(getActivity(),DataModel.DBMovies_Offline.mrecentMovies_offlinedata );
-                recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                Offlinedata_recyclerviewAdapter adapter = new Offlinedata_recyclerviewAdapter(getActivity(), DataModel.DBMovies_Offline.mrecentMovies_offlinedata);
+                recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
                 recyclerView.setAdapter(adapter);
-            }
-            else {
+            } else {
                 recyclerView.setVisibility(View.GONE);
                 emptyview.setVisibility(View.VISIBLE);
             }

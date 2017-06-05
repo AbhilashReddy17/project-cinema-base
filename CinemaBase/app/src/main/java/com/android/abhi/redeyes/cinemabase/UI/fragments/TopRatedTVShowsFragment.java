@@ -32,29 +32,27 @@ public class TopRatedTVShowsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.recyclerview_tvshows,container,false);
+        View view = inflater.inflate(R.layout.recyclerview_tvshows, container, false);
 
         TextView emptyview = (TextView) view.findViewById(R.id.emptyview_tvshows);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_tvshows);
 
-        if(DataModel.TVShows.mtopRatedTvShows != null){
+        if (DataModel.TVShows.mtopRatedTvShows != null) {
             emptyview.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
 
-            TVShowsRecyclerViewAdapter adapter = new TVShowsRecyclerViewAdapter(getActivity(),TOPRATEDTV_SHOWS);
-            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+            TVShowsRecyclerViewAdapter adapter = new TVShowsRecyclerViewAdapter(getActivity(), TOPRATEDTV_SHOWS);
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
             recyclerView.setAdapter(adapter);
 
-        }
-        else {
-            if(DataModel.TVShows_Offline.mtopRatedTvShows_offlinedata != null){
+        } else {
+            if (DataModel.TVShows_Offline.mtopRatedTvShows_offlinedata != null) {
                 recyclerView.setVisibility(View.VISIBLE);
                 emptyview.setVisibility(View.GONE);
-                Offlinedata_recyclerviewAdapter adapter = new Offlinedata_recyclerviewAdapter(getActivity(),DataModel.TVShows_Offline.mtopRatedTvShows_offlinedata );
-                recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                Offlinedata_recyclerviewAdapter adapter = new Offlinedata_recyclerviewAdapter(getActivity(), DataModel.TVShows_Offline.mtopRatedTvShows_offlinedata);
+                recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
                 recyclerView.setAdapter(adapter);
-            }
-            else {
+            } else {
                 recyclerView.setVisibility(View.GONE);
                 emptyview.setVisibility(View.VISIBLE);
             }

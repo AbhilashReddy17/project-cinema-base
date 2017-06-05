@@ -22,15 +22,15 @@ public class Offlinedata_recyclerviewAdapter extends RecyclerView.Adapter<Offlin
     Context context;
     List<Offline_Data> datas;
 
-    public Offlinedata_recyclerviewAdapter(Context context, List<Offline_Data> datas){
+    public Offlinedata_recyclerviewAdapter(Context context, List<Offline_Data> datas) {
         this.context = context;
         this.datas = datas;
     }
 
     @Override
     public Dataholder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.offline_data,parent,false);
-       Dataholder holder = new Dataholder(view);
+        View view = LayoutInflater.from(context).inflate(R.layout.offline_data, parent, false);
+        Dataholder holder = new Dataholder(view);
         return holder;
     }
 
@@ -41,7 +41,7 @@ public class Offlinedata_recyclerviewAdapter extends RecyclerView.Adapter<Offlin
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialog = new Dialog(context,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
                 dialog.setContentView(R.layout.offlinedata_description);
 
                 TextView title = (TextView) dialog.findViewById(R.id.offlinedata_desc_title);
@@ -60,12 +60,13 @@ public class Offlinedata_recyclerviewAdapter extends RecyclerView.Adapter<Offlin
         return datas.size();
     }
 
-    public class Dataholder extends RecyclerView.ViewHolder{
+    public class Dataholder extends RecyclerView.ViewHolder {
 
         TextView title;
+
         public Dataholder(View itemView) {
             super(itemView);
-           title= (TextView) itemView.findViewById(R.id.offlinedata_title);
+            title = (TextView) itemView.findViewById(R.id.offlinedata_title);
         }
     }
 }

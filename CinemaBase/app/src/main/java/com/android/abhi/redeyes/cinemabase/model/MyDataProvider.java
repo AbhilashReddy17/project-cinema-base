@@ -122,7 +122,8 @@ public class MyDataProvider extends ContentProvider {
         }
 
     }
-//method for inserting the values into the database
+
+    //method for inserting the values into the database
     private Uri insertData(Uri uri, ContentValues values, String tablemovie) {
         Cursor cursor;
         SQLiteDatabase writableDatabase = dbhelper.getWritableDatabase();
@@ -145,13 +146,13 @@ public class MyDataProvider extends ContentProvider {
         int match = suriMatcher.match(uri);
         switch (match) {
             case POPULAR_MOVIES:
-                return deleteData(uri,TABLE_POPULARMOVIES);
+                return deleteData(uri, TABLE_POPULARMOVIES);
             case RECENT_MOVIES:
-                return deleteData(uri,TABLE_RECENTMOVIES);
+                return deleteData(uri, TABLE_RECENTMOVIES);
             case UPCOMING_MOVIES:
-                return deleteData(uri,TABLE_UPCOMINGMOVIES);
+                return deleteData(uri, TABLE_UPCOMINGMOVIES);
             case TOPRATED_MOVIES:
-                return deleteData(uri,TABLE_TOPRATEDMOVIES);
+                return deleteData(uri, TABLE_TOPRATEDMOVIES);
             case POPULARTV_SHOWS:
                 return deleteData(uri, TABLE_POPULARTVSHOW);
             case TOPRATEDTV_SHOWS:
@@ -162,14 +163,14 @@ public class MyDataProvider extends ContentProvider {
 
     }
 
-    private int deleteData(Uri uri,String tablename) {
-      SQLiteDatabase database = dbhelper.getWritableDatabase();
-        return  database.delete(tablename,null,null);
+    private int deleteData(Uri uri, String tablename) {
+        SQLiteDatabase database = dbhelper.getWritableDatabase();
+        return database.delete(tablename, null, null);
     }
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-       //no implementaiton
+        //no implementaiton
         return 0;
     }
 }

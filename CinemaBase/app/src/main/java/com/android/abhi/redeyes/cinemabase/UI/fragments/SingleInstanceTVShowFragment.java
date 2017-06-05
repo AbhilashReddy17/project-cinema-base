@@ -16,22 +16,22 @@ public class SingleInstanceTVShowFragment {
 
     //returning the partiular fragment according to the viewpager position.
 
-    public Fragment singleInstaceFragment(int fragmentPosition){
-        switch(fragmentPosition){
+    public Fragment singleInstaceFragment(int fragmentPosition) {
+        switch (fragmentPosition) {
 
             case TVShowsFragmentAdapter.POPULARTV_SHOWS:
-                if(mpopulartvshows == null)
+                if (mpopulartvshows == null)
                     mpopulartvshows = new PopularTVShowsFragment();
                 return mpopulartvshows;
 
             case TVShowsFragmentAdapter.TOPRATED_TV_SHOWS:
-                if(mtopratedtvshows == null)
+                if (mtopratedtvshows == null)
                     mtopratedtvshows = new TopRatedTVShowsFragment();
                 return mtopratedtvshows;
 
 
             default:
-                if(mpopulartvshows == null)
+                if (mpopulartvshows == null)
                     mpopulartvshows = new PopularTVShowsFragment();
                 return mpopulartvshows;
 

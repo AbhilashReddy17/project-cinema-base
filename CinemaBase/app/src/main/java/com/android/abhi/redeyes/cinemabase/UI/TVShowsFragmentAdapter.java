@@ -14,12 +14,12 @@ import com.android.abhi.redeyes.cinemabase.UI.fragments.SingleInstanceTVShowFrag
 
 public class TVShowsFragmentAdapter extends FragmentStatePagerAdapter {
 
-    public static final int POPULARTV_SHOWS =0;
-    public static final int TOPRATED_TV_SHOWS =1;
+    public static final int POPULARTV_SHOWS = 0;
+    public static final int TOPRATED_TV_SHOWS = 1;
     SingleInstanceTVShowFragment mfragmentInstance;
     Context context;
 
-    public TVShowsFragmentAdapter(FragmentManager fm,Context context) {
+    public TVShowsFragmentAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
         mfragmentInstance = new SingleInstanceTVShowFragment();
@@ -28,7 +28,7 @@ public class TVShowsFragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        switch (position){
+        switch (position) {
             case POPULARTV_SHOWS:
                 return mfragmentInstance.singleInstaceFragment(POPULARTV_SHOWS);
             case TOPRATED_TV_SHOWS:
@@ -46,7 +46,7 @@ public class TVShowsFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch(position){
+        switch (position) {
             case POPULARTV_SHOWS:
                 return context.getResources().getString(R.string.PopularTvShows);
             case TOPRATED_TV_SHOWS:

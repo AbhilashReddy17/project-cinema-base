@@ -62,12 +62,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             DataModel.DBMovies.mrecentMovies = null;
             DataModel.DBMovies.mtopratedmovies = null;
             DataModel.DBMovies.mupcomingMovies = null;
-            getLoaderManager().initLoader(CinemaBaseContract.Movies.POPULAR_MOVIES,null,this);
-            getLoaderManager().initLoader(CinemaBaseContract.Movies.RECENT_MOVIES,null,this);
-            getLoaderManager().initLoader(CinemaBaseContract.Movies.UPCOMING_MOVIES,null,this);
-            getLoaderManager().initLoader(CinemaBaseContract.Movies.TOPRATED_MOVIES,null,this);
-            getLoaderManager().initLoader(CinemaBaseContract.TVShows.POPULARTV_SHOWS,null,this);
-            getLoaderManager().initLoader(CinemaBaseContract.TVShows.TOPRATEDTV_SHOWS,null,this);
+            getLoaderManager().initLoader(CinemaBaseContract.Movies.POPULAR_MOVIES, null, this);
+            getLoaderManager().initLoader(CinemaBaseContract.Movies.RECENT_MOVIES, null, this);
+            getLoaderManager().initLoader(CinemaBaseContract.Movies.UPCOMING_MOVIES, null, this);
+            getLoaderManager().initLoader(CinemaBaseContract.Movies.TOPRATED_MOVIES, null, this);
+            getLoaderManager().initLoader(CinemaBaseContract.TVShows.POPULARTV_SHOWS, null, this);
+            getLoaderManager().initLoader(CinemaBaseContract.TVShows.TOPRATEDTV_SHOWS, null, this);
 
             Toast.makeText(this, getResources().getString(R.string.NoDataAvailable), Toast.LENGTH_LONG).show();
         } else {
@@ -128,19 +128,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        switch(id){
-            case CinemaBaseContract.Movies.POPULAR_MOVIES :
-                return new CursorLoader(this, CinemaBaseContract.Movies.CONTENT_URI_POPULARMOVIES,null,null,null,null);
-            case CinemaBaseContract.Movies.RECENT_MOVIES :
-                return new CursorLoader(this, CinemaBaseContract.Movies.CONTENT_URI_RECENTMOVIES,null,null,null,null);
-            case CinemaBaseContract.Movies.UPCOMING_MOVIES :
-                return new CursorLoader(this, CinemaBaseContract.Movies.CONTENT_URI_UPCOMINGMOVIES,null,null,null,null);
-            case CinemaBaseContract.Movies.TOPRATED_MOVIES :
-                return new CursorLoader(this, CinemaBaseContract.Movies.CONTENT_URI_TOPRATEDMOVIES,null,null,null,null);
-            case CinemaBaseContract.TVShows.POPULARTV_SHOWS :
-                return new CursorLoader(this, CinemaBaseContract.TVShows.CONTENT_URI_POPULARTVSHOWS,null,null,null,null);
-            case CinemaBaseContract.TVShows.TOPRATEDTV_SHOWS :
-                return new CursorLoader(this, CinemaBaseContract.TVShows.CONTENT_URI_TOPRATEDTVSHOWS,null,null,null,null);
+        switch (id) {
+            case CinemaBaseContract.Movies.POPULAR_MOVIES:
+                return new CursorLoader(this, CinemaBaseContract.Movies.CONTENT_URI_POPULARMOVIES, null, null, null, null);
+            case CinemaBaseContract.Movies.RECENT_MOVIES:
+                return new CursorLoader(this, CinemaBaseContract.Movies.CONTENT_URI_RECENTMOVIES, null, null, null, null);
+            case CinemaBaseContract.Movies.UPCOMING_MOVIES:
+                return new CursorLoader(this, CinemaBaseContract.Movies.CONTENT_URI_UPCOMINGMOVIES, null, null, null, null);
+            case CinemaBaseContract.Movies.TOPRATED_MOVIES:
+                return new CursorLoader(this, CinemaBaseContract.Movies.CONTENT_URI_TOPRATEDMOVIES, null, null, null, null);
+            case CinemaBaseContract.TVShows.POPULARTV_SHOWS:
+                return new CursorLoader(this, CinemaBaseContract.TVShows.CONTENT_URI_POPULARTVSHOWS, null, null, null, null);
+            case CinemaBaseContract.TVShows.TOPRATEDTV_SHOWS:
+                return new CursorLoader(this, CinemaBaseContract.TVShows.CONTENT_URI_TOPRATEDTVSHOWS, null, null, null, null);
 
         }
         return null;
@@ -152,45 +152,46 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             Log.d(TAG, "onLoadFinished: empty");
             return;
         }
-        switch(loader.getId()){
-            case CinemaBaseContract.Movies.POPULAR_MOVIES :
-               DataModel.DBMovies_Offline.mpopularMovies_offlinedata= loadOfflineData(cursor);
+        switch (loader.getId()) {
+            case CinemaBaseContract.Movies.POPULAR_MOVIES:
+                DataModel.DBMovies_Offline.mpopularMovies_offlinedata = loadOfflineData(cursor);
                 break;
-            case CinemaBaseContract.Movies.RECENT_MOVIES :
-                DataModel.DBMovies_Offline.mrecentMovies_offlinedata= loadOfflineData(cursor);
+            case CinemaBaseContract.Movies.RECENT_MOVIES:
+                DataModel.DBMovies_Offline.mrecentMovies_offlinedata = loadOfflineData(cursor);
                 break;
-            case CinemaBaseContract.Movies.UPCOMING_MOVIES :
-                DataModel.DBMovies_Offline.mupcomingMovies_offlinedata= loadOfflineData(cursor);
+            case CinemaBaseContract.Movies.UPCOMING_MOVIES:
+                DataModel.DBMovies_Offline.mupcomingMovies_offlinedata = loadOfflineData(cursor);
                 break;
-            case CinemaBaseContract.Movies.TOPRATED_MOVIES :
-                DataModel.DBMovies_Offline.mtopratedmovies_offlinedata= loadOfflineData(cursor);
+            case CinemaBaseContract.Movies.TOPRATED_MOVIES:
+                DataModel.DBMovies_Offline.mtopratedmovies_offlinedata = loadOfflineData(cursor);
                 break;
-            case CinemaBaseContract.TVShows.POPULARTV_SHOWS :
-                DataModel.TVShows_Offline.mpopularTvShows_offlinedata= loadOfflineData(cursor);
+            case CinemaBaseContract.TVShows.POPULARTV_SHOWS:
+                DataModel.TVShows_Offline.mpopularTvShows_offlinedata = loadOfflineData(cursor);
                 break;
-            case CinemaBaseContract.TVShows.TOPRATEDTV_SHOWS :
-                DataModel.TVShows_Offline.mtopRatedTvShows_offlinedata= loadOfflineData(cursor);
+            case CinemaBaseContract.TVShows.TOPRATEDTV_SHOWS:
+                DataModel.TVShows_Offline.mtopRatedTvShows_offlinedata = loadOfflineData(cursor);
                 break;
         }
     }
+
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
     }
+
     private List<Offline_Data> loadOfflineData(Cursor cursor) {
         cursor.moveToFirst();
         List<Offline_Data> datas = new ArrayList<Offline_Data>();
         while (!cursor.isAfterLast()) {
             Offline_Data data = new Offline_Data();
-          data.setTitle(cursor.getString(cursor.getColumnIndex(CinemaBaseContract.Movies.COL_TITLE)));
-          data.setPoster_path(cursor.getString(cursor.getColumnIndex(CinemaBaseContract.Movies.COL_POSTER_PATH)));
+            data.setTitle(cursor.getString(cursor.getColumnIndex(CinemaBaseContract.Movies.COL_TITLE)));
+            data.setPoster_path(cursor.getString(cursor.getColumnIndex(CinemaBaseContract.Movies.COL_POSTER_PATH)));
             data.setOverview(cursor.getString(cursor.getColumnIndex(CinemaBaseContract.Movies.COL_OVERVIEW)));
             cursor.moveToNext();
             datas.add(data);
         }
         return datas;
     }
-
 
 
     class TaskLoadingData extends AsyncTask<String, MovieDb, Void> {
@@ -215,8 +216,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         protected Void doInBackground(String... params) {
             Log.d(TAG, "doInBackground: entered");
 
-//18776af9228988fa403a2b0ad682e344
-//19c112a1364b89f6c5739a931f9fded6
+
             try {
                 TmdbApi tmdbapi = new TmdbApi("18776af9228988fa403a2b0ad682e344");
 

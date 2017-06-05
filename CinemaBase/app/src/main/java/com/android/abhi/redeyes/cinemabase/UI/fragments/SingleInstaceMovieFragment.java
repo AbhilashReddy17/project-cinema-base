@@ -26,35 +26,35 @@ public class SingleInstaceMovieFragment {
 
     //returning the partiular fragment according to the viewpager position.
 
-    public  Fragment singleInstaceFragment(int fragmentPosition){
-        switch(fragmentPosition){
+    public Fragment singleInstaceFragment(int fragmentPosition) {
+        switch (fragmentPosition) {
             case MOVIES:
-                if(mmovies ==null)
+                if (mmovies == null)
                     mmovies = new MoviesFragment();
                 return mmovies;
             case RECENT_MOVIES:
-                Log.d(TAG, "singleInstaceFragment: "+RECENT_MOVIES);
-                if(mrecentmovies ==null)
+                Log.d(TAG, "singleInstaceFragment: " + RECENT_MOVIES);
+                if (mrecentmovies == null)
                     mrecentmovies = new RecentMoviesFragment();
                 return mrecentmovies;
 
             case UPCOMING_MOVIES:
-                if(mupcomingmovies ==null)
+                if (mupcomingmovies == null)
                     mupcomingmovies = new UpcomingMoviesFragment();
                 return mupcomingmovies;
 
             case TOPRATED_MOVIES:
-                if(mtopratedmovies == null)
+                if (mtopratedmovies == null)
                     mtopratedmovies = new TopRatedMoviesFragment();
-                return  mtopratedmovies;
+                return mtopratedmovies;
 
             case POPULAR_MOVIES:
-                if(mpopularmovies == null)
+                if (mpopularmovies == null)
                     mpopularmovies = new PopularMoviesFragment();
-                return  mpopularmovies;
+                return mpopularmovies;
 
             default:
-                if(mmovies ==null)
+                if (mmovies == null)
                     mmovies = new MoviesFragment();
                 return mmovies;
 

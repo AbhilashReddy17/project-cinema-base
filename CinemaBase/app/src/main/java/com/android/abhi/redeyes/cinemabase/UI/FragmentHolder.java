@@ -36,7 +36,7 @@ public class FragmentHolder extends AppCompatActivity {
         selectCategory = (ImageView) findViewById(R.id.selectCategory);
         dialog = new AlertDialog.Builder(this);
         movieFragment = new SingleInstaceMovieFragment();
-        int whichfragment = getIntent().getIntExtra("fragment",1);
+        int whichfragment = getIntent().getIntExtra("fragment", 1);
 
         selectFragment(whichfragment);
 
@@ -44,22 +44,22 @@ public class FragmentHolder extends AppCompatActivity {
         selectCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] categorys = {"Recent Movies","Popular movies","Upcoming Movies","Top Rated Movies"};
+                String[] categorys = {"Recent Movies", "Popular movies", "Upcoming Movies", "Top Rated Movies"};
                 dialog.setItems(categorys, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch(which){
+                        switch (which) {
                             case 0:
-                                selectFragment(which+1);
+                                selectFragment(which + 1);
                                 break;
                             case 1:
-                                selectFragment(which+1);
+                                selectFragment(which + 1);
                                 break;
                             case 2:
-                                selectFragment(which+1);
+                                selectFragment(which + 1);
                                 break;
                             case 3:
-                                selectFragment(which+1);
+                                selectFragment(which + 1);
                                 break;
                         }
                     }
@@ -69,35 +69,34 @@ public class FragmentHolder extends AppCompatActivity {
         });
 
 
-
     }
 
     private void selectFragment(int whichfragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        switch (whichfragment){
+        switch (whichfragment) {
             case RECENT_MOVIES:
-                Log.d(TAG, "onCreate: "+whichfragment);
+                Log.d(TAG, "onCreate: " + whichfragment);
                 fragment = null;
-               fragment= movieFragment.singleInstaceFragment(RECENT_MOVIES);
-                transaction.replace(R.id.moviefragment_container,fragment,"recentmovies");
+                fragment = movieFragment.singleInstaceFragment(RECENT_MOVIES);
+                transaction.replace(R.id.moviefragment_container, fragment, "recentmovies");
                 transaction.commit();
                 break;
             case UPCOMING_MOVIES:
                 fragment = null;
-                fragment= movieFragment.singleInstaceFragment(UPCOMING_MOVIES);
-                transaction.replace(R.id.moviefragment_container,fragment,"upcomingmovies");
+                fragment = movieFragment.singleInstaceFragment(UPCOMING_MOVIES);
+                transaction.replace(R.id.moviefragment_container, fragment, "upcomingmovies");
                 transaction.commit();
                 break;
             case POPULAR_MOVIES:
                 fragment = null;
                 fragment = movieFragment.singleInstaceFragment(POPULAR_MOVIES);
-                transaction.replace(R.id.moviefragment_container,fragment,"popularmovies");
+                transaction.replace(R.id.moviefragment_container, fragment, "popularmovies");
                 transaction.commit();
                 break;
             case TOPRATED_MOVIES:
                 fragment = null;
                 fragment = movieFragment.singleInstaceFragment(TOPRATED_MOVIES);
-                transaction.replace(R.id.moviefragment_container,fragment,"topratedmovies");
+                transaction.replace(R.id.moviefragment_container, fragment, "topratedmovies");
                 transaction.commit();
                 break;
         }

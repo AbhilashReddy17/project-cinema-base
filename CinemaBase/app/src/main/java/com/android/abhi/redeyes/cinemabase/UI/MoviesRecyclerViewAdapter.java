@@ -19,7 +19,10 @@ import java.util.List;
 import info.movito.themoviedbapi.model.MovieDb;
 
 import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.IMAGE_URL;
-import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.*;
+import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.POPULAR_MOVIES;
+import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.RECENT_MOVIES;
+import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.TOPRATED_MOVIES;
+import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.UPCOMING_MOVIES;
 
 /**
  * Created by Abhilash Reddy on 6/2/2017.

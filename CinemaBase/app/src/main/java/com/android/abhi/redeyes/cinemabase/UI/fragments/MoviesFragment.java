@@ -23,19 +23,19 @@ import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movie
  * Created by Abhilash Reddy on 5/31/2017.
  */
 
-public class MoviesFragment extends Fragment{
+public class MoviesFragment extends Fragment {
 
     static MoviesFragment mnowplayingmovies;
     FragmentManager manager;
     SingleInstaceMovieFragment movieFragment;
     FragmentHolder mfragmentHolder;
 
-    CardView mrecentmovies,mpopularmovies,mupcomingmovies,mtopratedmovies;
+    CardView mrecentmovies, mpopularmovies, mupcomingmovies, mtopratedmovies;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_movies,container,false);
+        View view = inflater.inflate(R.layout.fragment_movies, container, false);
 
         //configuring required views
         configureViews(view);
@@ -51,7 +51,8 @@ public class MoviesFragment extends Fragment{
         mpopularmovies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showFragment(POPULAR_MOVIES);            }
+                showFragment(POPULAR_MOVIES);
+            }
         });
 
         mupcomingmovies.setOnClickListener(new View.OnClickListener() {
@@ -72,8 +73,8 @@ public class MoviesFragment extends Fragment{
     }
 
     private void showFragment(int fragment) {
-        Intent intent = new Intent(getActivity(),FragmentHolder.class);
-        intent.putExtra("fragment",fragment);
+        Intent intent = new Intent(getActivity(), FragmentHolder.class);
+        intent.putExtra("fragment", fragment);
         startActivity(intent);
     }
 
@@ -87,9 +88,9 @@ public class MoviesFragment extends Fragment{
         mfragmentHolder = new FragmentHolder();
     }
 
-    public MoviesFragment singleInstanceFragment(){
-    if(mnowplayingmovies==null)
-        mnowplayingmovies = new MoviesFragment();
-    return mnowplayingmovies;
-}
+    public MoviesFragment singleInstanceFragment() {
+        if (mnowplayingmovies == null)
+            mnowplayingmovies = new MoviesFragment();
+        return mnowplayingmovies;
+    }
 }
