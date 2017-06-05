@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.android.abhi.redeyes.cinemabase.R;
 import com.android.abhi.redeyes.cinemabase.UI.MoviesRecyclerViewAdapter;
+import com.android.abhi.redeyes.cinemabase.UI.Offlinedata_recyclerviewAdapter;
 import com.android.abhi.redeyes.cinemabase.model.DataModel;
 
 import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.UPCOMING_MOVIES;
@@ -43,11 +44,19 @@ public class UpcomingMoviesFragment extends Fragment {
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
             recyclerView.setAdapter(adapter);
         }
-        else{
-            recyclerView.setVisibility(View.GONE);
-            emptyview.setVisibility(View.VISIBLE);
+        else {
+            if(DataModel.DBMovies_Offline.mupcomingMovies_offlinedata!= null){
+                recyclerView.setVisibility(View.VISIBLE);
+                emptyview.setVisibility(View.GONE);
+                Offlinedata_recyclerviewAdapter adapter = new Offlinedata_recyclerviewAdapter(getActivity(),DataModel.DBMovies_Offline.mupcomingMovies_offlinedata );
+                recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                recyclerView.setAdapter(adapter);
+            }
+            else {
+                recyclerView.setVisibility(View.GONE);
+                emptyview.setVisibility(View.VISIBLE);
+            }
         }
-
         return view;
     }
 }

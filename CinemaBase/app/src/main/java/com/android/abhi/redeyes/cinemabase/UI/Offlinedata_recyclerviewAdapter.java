@@ -1,5 +1,6 @@
 package com.android.abhi.redeyes.cinemabase.UI;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,7 +22,7 @@ public class Offlinedata_recyclerviewAdapter extends RecyclerView.Adapter<Offlin
     Context context;
     List<Offline_Data> datas;
 
-    public Offlinedata_recyclerviewAdapter(Context cotext, List<Offline_Data> datas){
+    public Offlinedata_recyclerviewAdapter(Context context, List<Offline_Data> datas){
         this.context = context;
         this.datas = datas;
     }
@@ -30,15 +31,28 @@ public class Offlinedata_recyclerviewAdapter extends RecyclerView.Adapter<Offlin
     public Dataholder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.offline_data,parent,false);
        Dataholder holder = new Dataholder(view);
-
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(Dataholder holder, int position) {
+    public void onBindViewHolder(Dataholder holder, final int position) {
 
         holder.title.setText(datas.get(position).getTitle());
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(context,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                dialog.setContentView(R.layout.offlinedata_description);
 
+                TextView title = (TextView) dialog.findViewById(R.id.offlinedata_desc_title);
+                TextView desc = (TextView) dialog.findViewById(R.id.offlinedata_desc_overview);
+
+                title.setText(datas.get(position).getTitle());
+                desc.setText(datas.get(position).getOverview());
+                dialog.show();
+
+            }
+        });
     }
 
     @Override

@@ -1,9 +1,13 @@
 package com.android.abhi.redeyes.cinemabase.UI;
 
+import android.app.LoaderManager;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
+import android.content.Loader;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -19,9 +23,12 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.abhi.redeyes.cinemabase.R;
+import com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract;
 import com.android.abhi.redeyes.cinemabase.model.DataModel;
+import com.android.abhi.redeyes.cinemabase.model.Offline_Data;
 import com.android.abhi.redeyes.cinemabase.model.TaskLoadingDatatoDB;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import info.movito.themoviedbapi.TmdbApi;
@@ -31,7 +38,7 @@ import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.ResponseStatusException;
 import info.movito.themoviedbapi.model.tv.TvSeries;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     ImageView selectCategory;
@@ -55,7 +62,12 @@ public class MainActivity extends AppCompatActivity {
             DataModel.DBMovies.mrecentMovies = null;
             DataModel.DBMovies.mtopratedmovies = null;
             DataModel.DBMovies.mupcomingMovies = null;
-
+            getLoaderManager().initLoader(CinemaBaseContract.Movies.POPULAR_MOVIES,null,this);
+            getLoaderManager().initLoader(CinemaBaseContract.Movies.RECENT_MOVIES,null,this);
+            getLoaderManager().initLoader(CinemaBaseContract.Movies.UPCOMING_MOVIES,null,this);
+            getLoaderManager().initLoader(CinemaBaseContract.Movies.TOPRATED_MOVIES,null,this);
+            getLoaderManager().initLoader(CinemaBaseContract.TVShows.POPULARTV_SHOWS,null,this);
+            getLoaderManager().initLoader(CinemaBaseContract.TVShows.TOPRATEDTV_SHOWS,null,this);
 
             Toast.makeText(this, getResources().getString(R.string.NoDataAvailable), Toast.LENGTH_LONG).show();
         } else {
@@ -114,12 +126,80 @@ public class MainActivity extends AppCompatActivity {
         dialog = new AlertDialog.Builder(this);
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        switch(id){
+            case CinemaBaseContract.Movies.POPULAR_MOVIES :
+                return new CursorLoader(this, CinemaBaseContract.Movies.CONTENT_URI_POPULARMOVIES,null,null,null,null);
+            case CinemaBaseContract.Movies.RECENT_MOVIES :
+                return new CursorLoader(this, CinemaBaseContract.Movies.CONTENT_URI_RECENTMOVIES,null,null,null,null);
+            case CinemaBaseContract.Movies.UPCOMING_MOVIES :
+                return new CursorLoader(this, CinemaBaseContract.Movies.CONTENT_URI_UPCOMINGMOVIES,null,null,null,null);
+            case CinemaBaseContract.Movies.TOPRATED_MOVIES :
+                return new CursorLoader(this, CinemaBaseContract.Movies.CONTENT_URI_TOPRATEDMOVIES,null,null,null,null);
+            case CinemaBaseContract.TVShows.POPULARTV_SHOWS :
+                return new CursorLoader(this, CinemaBaseContract.TVShows.CONTENT_URI_POPULARTVSHOWS,null,null,null,null);
+            case CinemaBaseContract.TVShows.TOPRATEDTV_SHOWS :
+                return new CursorLoader(this, CinemaBaseContract.TVShows.CONTENT_URI_TOPRATEDTVSHOWS,null,null,null,null);
+
+        }
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if (cursor == null || cursor.getCount() < 1) {
+            Log.d(TAG, "onLoadFinished: empty");
+            return;
+        }
+        switch(loader.getId()){
+            case CinemaBaseContract.Movies.POPULAR_MOVIES :
+               DataModel.DBMovies_Offline.mpopularMovies_offlinedata= loadOfflineData(cursor);
+                break;
+            case CinemaBaseContract.Movies.RECENT_MOVIES :
+                DataModel.DBMovies_Offline.mrecentMovies_offlinedata= loadOfflineData(cursor);
+                break;
+            case CinemaBaseContract.Movies.UPCOMING_MOVIES :
+                DataModel.DBMovies_Offline.mupcomingMovies_offlinedata= loadOfflineData(cursor);
+                break;
+            case CinemaBaseContract.Movies.TOPRATED_MOVIES :
+                DataModel.DBMovies_Offline.mtopratedmovies_offlinedata= loadOfflineData(cursor);
+                break;
+            case CinemaBaseContract.TVShows.POPULARTV_SHOWS :
+                DataModel.TVShows_Offline.mpopularTvShows_offlinedata= loadOfflineData(cursor);
+                break;
+            case CinemaBaseContract.TVShows.TOPRATEDTV_SHOWS :
+                DataModel.TVShows_Offline.mtopRatedTvShows_offlinedata= loadOfflineData(cursor);
+                break;
+        }
+    }
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
+    private List<Offline_Data> loadOfflineData(Cursor cursor) {
+        cursor.moveToFirst();
+        List<Offline_Data> datas = new ArrayList<Offline_Data>();
+        while (!cursor.isAfterLast()) {
+            Offline_Data data = new Offline_Data();
+          data.setTitle(cursor.getString(cursor.getColumnIndex(CinemaBaseContract.Movies.COL_TITLE)));
+          data.setPoster_path(cursor.getString(cursor.getColumnIndex(CinemaBaseContract.Movies.COL_POSTER_PATH)));
+            data.setOverview(cursor.getString(cursor.getColumnIndex(CinemaBaseContract.Movies.COL_OVERVIEW)));
+            cursor.moveToNext();
+            datas.add(data);
+        }
+        return datas;
+    }
+
+
+
     class TaskLoadingData extends AsyncTask<String, MovieDb, Void> {
         LinearLayout appconfigureLayout = (LinearLayout) findViewById(R.id.configureAppLayout);
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
             appconfigureLayout.setVisibility(View.VISIBLE);
             Log.d(TAG, "onPreExecute: ");
 

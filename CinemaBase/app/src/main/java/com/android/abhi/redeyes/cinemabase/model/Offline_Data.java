@@ -9,11 +9,6 @@ public class Offline_Data {
     String poster_path;
     String Overview;
 
-    public Offline_Data(String title, String image_path, String overview) {
-        this.title = title;
-        this.poster_path = image_path;
-        Overview = overview;
-    }
 
     public String getTitle() {
         return title;

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.abhi.redeyes.cinemabase.R;
+import com.android.abhi.redeyes.cinemabase.UI.Offlinedata_recyclerviewAdapter;
 import com.android.abhi.redeyes.cinemabase.UI.TVShowsRecyclerViewAdapter;
 import com.android.abhi.redeyes.cinemabase.model.DataModel;
 
@@ -46,9 +47,18 @@ public class PopularTVShowsFragment extends Fragment {
             recyclerView.setAdapter(adapter);
 
         }
-        else{
-            emptyview.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
+        else {
+            if(DataModel.TVShows_Offline.mpopularTvShows_offlinedata != null){
+                recyclerView.setVisibility(View.VISIBLE);
+                emptyview.setVisibility(View.GONE);
+                Offlinedata_recyclerviewAdapter adapter = new Offlinedata_recyclerviewAdapter(getActivity(),DataModel.TVShows_Offline.mpopularTvShows_offlinedata );
+                recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                recyclerView.setAdapter(adapter);
+            }
+            else {
+                recyclerView.setVisibility(View.GONE);
+                emptyview.setVisibility(View.VISIBLE);
+            }
         }
 
         return view;

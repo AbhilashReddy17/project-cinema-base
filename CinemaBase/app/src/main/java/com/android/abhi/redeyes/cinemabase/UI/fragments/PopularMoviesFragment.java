@@ -16,6 +16,7 @@ import com.android.abhi.redeyes.cinemabase.R;
 import com.android.abhi.redeyes.cinemabase.UI.MoviesRecyclerViewAdapter;
 import com.android.abhi.redeyes.cinemabase.UI.Offlinedata_recyclerviewAdapter;
 import com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract;
+import com.android.abhi.redeyes.cinemabase.model.DataModel;
 import com.android.abhi.redeyes.cinemabase.model.Offline_Data;
 
 import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.CONTENT_URI_POPULARMOVIES;
@@ -49,9 +50,17 @@ public class PopularMoviesFragment extends Fragment {
             recyclerView.setAdapter(adapter);
         }
         else {
-                recyclerView.setVisibility(View.GONE);
-                emptyview.setVisibility(View.VISIBLE);
-
+                if(DataModel.DBMovies_Offline.mpopularMovies_offlinedata != null){
+                    recyclerView.setVisibility(View.VISIBLE);
+                    emptyview.setVisibility(View.GONE);
+                    Offlinedata_recyclerviewAdapter adapter = new Offlinedata_recyclerviewAdapter(getActivity(),DataModel.DBMovies_Offline.mpopularMovies_offlinedata );
+                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                    recyclerView.setAdapter(adapter);
+                }
+                else {
+                    recyclerView.setVisibility(View.GONE);
+                    emptyview.setVisibility(View.VISIBLE);
+                }
         }
 
 
