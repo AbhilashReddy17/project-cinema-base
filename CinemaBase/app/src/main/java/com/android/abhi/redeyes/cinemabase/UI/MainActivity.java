@@ -2,6 +2,8 @@ package com.android.abhi.redeyes.cinemabase.UI;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -18,13 +20,13 @@ import android.widget.Toast;
 
 import com.android.abhi.redeyes.cinemabase.R;
 import com.android.abhi.redeyes.cinemabase.model.DataModel;
+import com.android.abhi.redeyes.cinemabase.model.TaskLoadingDatatoDB;
 
 import java.util.List;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.TmdbTV;
-import info.movito.themoviedbapi.TmdbTvSeasons;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.ResponseStatusException;
 import info.movito.themoviedbapi.model.tv.TvSeries;
@@ -45,21 +47,23 @@ public class MainActivity extends AppCompatActivity {
         //configuring all required viems and assignments.
         configureViews();
 
-        if(!isNetworkAvailable()){
-           DataModel.TVShows.mpopularTvShows =null;
-            DataModel.TVShows.mtopRatedTvShows =null;
+        if (!isNetworkAvailable()) {
+            DataModel.TVShows.mpopularTvShows = null;
+            DataModel.TVShows.mtopRatedTvShows = null;
 
             DataModel.DBMovies.mpopularMovies = null;
             DataModel.DBMovies.mrecentMovies = null;
-            DataModel.DBMovies.mtopratedmovies =null;
-            DataModel.DBMovies.mupcomingMovies =null;
+            DataModel.DBMovies.mtopratedmovies = null;
+            DataModel.DBMovies.mupcomingMovies = null;
+
+
             Toast.makeText(this, getResources().getString(R.string.NoDataAvailable), Toast.LENGTH_LONG).show();
-        }
-        else{
+        } else {
             //loading movies into the model
-            checkAsynkTask task = new checkAsynkTask();
+            TaskLoadingData task = new TaskLoadingData();
             task.execute();
         }
+
 
         final FragmentManager manager = getSupportFragmentManager();
         final ViewPager pager = (ViewPager) findViewById(R.id.mainactivity_viewpager);
@@ -110,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         dialog = new AlertDialog.Builder(this);
     }
 
-    class checkAsynkTask extends AsyncTask<String, MovieDb, Void> {
+    class TaskLoadingData extends AsyncTask<String, MovieDb, Void> {
         LinearLayout appconfigureLayout = (LinearLayout) findViewById(R.id.configureAppLayout);
 
         @Override
@@ -118,6 +122,13 @@ public class MainActivity extends AppCompatActivity {
             super.onPreExecute();
             appconfigureLayout.setVisibility(View.VISIBLE);
             Log.d(TAG, "onPreExecute: ");
+
+            //checking orientation and freezing it till we fetch data
+            if (MainActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                MainActivity.this.setRequestedOrientation(Configuration.ORIENTATION_LANDSCAPE);
+            } else {
+                MainActivity.this.setRequestedOrientation(Configuration.ORIENTATION_PORTRAIT);
+            }
         }
 
         @Override
@@ -149,16 +160,16 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     TmdbTV tvseries = tmdbapi.getTvSeries();
-                    List<TvSeries> populartvseries = tvseries.getPopular("en",1).getResults();
-                    DataModel.TVShows.mpopularTvShows =populartvseries;
-                    List<TvSeries> topratedTvSeries = tvseries.getTopRated("en",1).getResults();
-                    DataModel.TVShows.mtopRatedTvShows =topratedTvSeries;
+                    List<TvSeries> populartvseries = tvseries.getPopular("en", 1).getResults();
+                    DataModel.TVShows.mpopularTvShows = populartvseries;
+                    List<TvSeries> topratedTvSeries = tvseries.getTopRated("en", 1).getResults();
+                    DataModel.TVShows.mtopRatedTvShows = topratedTvSeries;
 
-                }catch(ResponseStatusException ex){
+                } catch (ResponseStatusException ex) {
                     Log.d(TAG, "doInBackground: exceptipon in connecting TV shows");
                 }
 
-            }catch(ResponseStatusException ex){
+            } catch (ResponseStatusException ex) {
                 Log.d(TAG, "doInBackground: exception in connecting api");
             }
 
@@ -170,6 +181,13 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             Log.d(TAG, "completed loading movies");
             appconfigureLayout.setVisibility(View.GONE);
+            //releasing the orientation
+            MainActivity.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+
+            //loading data into database
+            TaskLoadingDatatoDB task = new TaskLoadingDatatoDB(MainActivity.this);
+            task.execute();
         }
     }
+
 }

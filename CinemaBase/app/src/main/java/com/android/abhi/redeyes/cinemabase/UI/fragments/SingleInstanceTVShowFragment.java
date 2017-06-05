@@ -10,6 +10,7 @@ import com.android.abhi.redeyes.cinemabase.UI.TVShowsFragmentAdapter;
  */
 
 public class SingleInstanceTVShowFragment {
+
     static PopularTVShowsFragment mpopulartvshows;
     static TopRatedTVShowsFragment mtopratedtvshows;
 

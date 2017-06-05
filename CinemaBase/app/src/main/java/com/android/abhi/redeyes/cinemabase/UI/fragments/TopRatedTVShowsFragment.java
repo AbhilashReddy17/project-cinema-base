@@ -21,6 +21,13 @@ import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.TVSho
  */
 
 public class TopRatedTVShowsFragment extends Fragment {
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setRetainInstance(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,7 +35,6 @@ public class TopRatedTVShowsFragment extends Fragment {
 
         TextView emptyview = (TextView) view.findViewById(R.id.emptyview_tvshows);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_tvshows);
-
 
         if(DataModel.TVShows.mtopRatedTvShows != null){
             emptyview.setVisibility(View.GONE);

@@ -21,6 +21,11 @@ import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movie
  */
 
 public class RecentMoviesFragment extends Fragment {
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setRetainInstance(true);
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

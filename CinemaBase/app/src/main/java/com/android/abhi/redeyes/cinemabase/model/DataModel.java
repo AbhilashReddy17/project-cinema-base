@@ -23,4 +23,15 @@ public class DataModel {
         public static List<TvSeries> mtopRatedTvShows;
     }
 
+    public static class DBMovies_Offline{
+        public static List<Offline_Data> mpopularMovies_offlinedata;
+        public static List<Offline_Data> mtopratedmovies_offlinedata;
+        public static List<Offline_Data> mupcomingMovies_offlinedata;
+        public static List<Offline_Data> mrecentMovies_offlinedata;
+
+    }
+    public static class TVShows_Offline{
+        public static List<Offline_Data> mpopularTvShows_offlinedata;
+        public static List<Offline_Data> mtopRatedTvShows_offlinedata;
+    }
 }
