@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //configuring all required viems and assignments.
         configureViews();
 
+
         if (!isNetworkAvailable()) {
             DataModel.TVShows.mpopularTvShows = null;
             DataModel.TVShows.mtopRatedTvShows = null;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             DataModel.DBMovies.mrecentMovies = null;
             DataModel.DBMovies.mtopratedmovies = null;
             DataModel.DBMovies.mupcomingMovies = null;
+            //loading data from the database into global variables
             getLoaderManager().initLoader(CinemaBaseContract.Movies.POPULAR_MOVIES, null, this);
             getLoaderManager().initLoader(CinemaBaseContract.Movies.RECENT_MOVIES, null, this);
             getLoaderManager().initLoader(CinemaBaseContract.Movies.UPCOMING_MOVIES, null, this);
@@ -77,11 +79,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
 
 
-        final FragmentManager manager = getSupportFragmentManager();
-        final ViewPager pager = (ViewPager) findViewById(R.id.mainactivity_viewpager);
-        movieadapter = null;
-        movieadapter = new MoviesFragmentAdapter(manager, MainActivity.this);
-        pager.setAdapter(movieadapter);
+            final FragmentManager manager = getSupportFragmentManager();
+            final ViewPager pager = (ViewPager) findViewById(R.id.mainactivity_viewpager);
+            movieadapter = null;
+            movieadapter = new MoviesFragmentAdapter(manager, MainActivity.this);
+            pager.setAdapter(movieadapter);
+
 
 
         //implementing the onclick listners for the respective categorys
