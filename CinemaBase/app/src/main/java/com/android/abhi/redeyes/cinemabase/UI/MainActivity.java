@@ -207,12 +207,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             appconfigureLayout.setVisibility(View.VISIBLE);
             Log.d(TAG, "onPreExecute: ");
 
-            //checking orientation and freezing it till we fetch data
-            if (MainActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                MainActivity.this.setRequestedOrientation(Configuration.ORIENTATION_LANDSCAPE);
-            } else {
-                MainActivity.this.setRequestedOrientation(Configuration.ORIENTATION_PORTRAIT);
-            }
         }
 
         @Override
@@ -264,8 +258,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         protected void onPostExecute(Void aVoid) {
             Log.d(TAG, "completed loading movies");
             appconfigureLayout.setVisibility(View.GONE);
-            //releasing the orientation
-            MainActivity.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
             //loading data into database
             TaskLoadingDatatoDB task = new TaskLoadingDatatoDB(MainActivity.this);
