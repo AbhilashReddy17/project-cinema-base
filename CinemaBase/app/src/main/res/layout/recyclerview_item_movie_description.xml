@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recyclerview_item_movie_description"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical"
- android:padding="16dp">
+ android:padding="16dp"
+    >
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+android:background="@color/colorAccent"
+        android:paddingTop="16dp"
        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical">
@@ -28,8 +31,10 @@
                 android:adjustViewBounds="true"
                 android:src="@drawable/image_icon"
                 android:scaleType="centerCrop"
+                android:paddingTop="164dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:contentDescription="@string/imagedescription"
                 />
 
             <TextView

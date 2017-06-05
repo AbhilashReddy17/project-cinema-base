@@ -10,19 +10,29 @@
        android:id="@+id/configureAppLayout"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:visibility="gone"
-       android:orientation="vertical">
+       android:visibility="visible"
+       android:orientation="vertical"
+       android:background="@color/colorAccent"
+       android:layout_gravity="center"
+       android:gravity="center">
        <TextView
+           android:layout_gravity="center"
            android:layout_width="match_parent"
-           android:layout_height="match_parent"
+           android:layout_height="wrap_content"
            android:text="@string/app_name"
            android:background="@color/colorAccent"
            android:gravity="center"
            android:textColor="@color/colorPrimary"
            android:textSize="32sp"
            android:lines="1"
-           android:textStyle="bold"
-           android:elevation="32dp"/>
+           android:textStyle="bold" />
+       <ImageView
+           android:layout_width="164dp"
+           android:layout_height="164dp"
+           android:layout_gravity="center"
+           android:src="@mipmap/ic_launcher"
+           android:scaleType="fitCenter"
+           />
 
    </LinearLayout>
 
