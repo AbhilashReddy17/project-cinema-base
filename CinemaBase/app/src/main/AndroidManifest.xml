@@ -27,7 +27,8 @@
         </activity>
         <activity android:name=".UI.FragmentHolder" />
         <activity android:name=".UI.MoviesActivity" />
-        <activity android:name=".UI.TVShowsActivity"></activity>
+        <activity android:name=".UI.TVShowsActivity" />
+        <activity android:name=".UI.ShowDetails"></activity>
     </application>
 
 </manifest>

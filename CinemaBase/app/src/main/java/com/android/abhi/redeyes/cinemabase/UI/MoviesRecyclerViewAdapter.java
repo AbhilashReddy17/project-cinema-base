@@ -2,6 +2,7 @@ package com.android.abhi.redeyes.cinemabase.UI;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,10 +15,12 @@ import com.android.abhi.redeyes.cinemabase.R;
 import com.android.abhi.redeyes.cinemabase.model.DataModel;
 import com.bumptech.glide.Glide;
 
+import java.io.Serializable;
 import java.util.List;
 
 import info.movito.themoviedbapi.model.MovieDb;
 
+import static android.R.attr.start;
 import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.IMAGE_URL;
 import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.POPULAR_MOVIES;
 import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.RECENT_MOVIES;
@@ -76,21 +79,25 @@ public static final String TAG ="moviesadapter";
                 @Override
                 public void onClick(View v) {
 
-                    Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-                    dialog.setContentView(R.layout.recyclerview_item_movie_description);
-                    dialog.setTitle("");
+//                    Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+//                    dialog.setContentView(R.layout.recyclerview_item_movie_description);
+//                    dialog.setTitle("");
+//
+//
+//                    TextView title = (TextView) dialog.findViewById(R.id.movie_title);
+//                    ImageView poster = (ImageView) dialog.findViewById(R.id.movie_full_poster);
+//                    TextView description = (TextView) dialog.findViewById(R.id.movie_description);
+//
+//                    String path = movies.get(position).getPosterPath();
+//                    title.setText(movies.get(position).getOriginalTitle());
+//                    Glide.with(context).load(IMAGE_URL+ path).into(poster);
+//                    description.setText(movies.get(position).getOverview());
+//
+//                    dialog.show();
 
-
-                    TextView title = (TextView) dialog.findViewById(R.id.movie_title);
-                    ImageView poster = (ImageView) dialog.findViewById(R.id.movie_full_poster);
-                    TextView description = (TextView) dialog.findViewById(R.id.movie_description);
-
-                    String path = movies.get(position).getPosterPath();
-                    title.setText(movies.get(position).getOriginalTitle());
-                    Glide.with(context).load(IMAGE_URL+ path).into(poster);
-                    description.setText(movies.get(position).getOverview());
-
-                    dialog.show();
+                    Intent intent = new Intent(context,ShowDetails.class);
+                    intent.putExtra("movies", movies.get(position));
+                    context.startActivity(intent);
 
                 }
             });

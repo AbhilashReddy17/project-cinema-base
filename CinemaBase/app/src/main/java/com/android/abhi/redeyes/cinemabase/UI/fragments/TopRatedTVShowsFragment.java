@@ -48,6 +48,7 @@ public class TopRatedTVShowsFragment extends Fragment {
         TextView emptyview = (TextView) view.findViewById(R.id.emptyview_tvshows);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_tvshows);
 
+
         if (DataModel.TVShows.mtopRatedTvShows != null) {
             emptyview.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);

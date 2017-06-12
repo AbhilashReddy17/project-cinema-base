@@ -71,6 +71,8 @@ public class PopularMoviesFragment extends Fragment {
         Log.d(TAG, "onCreateView: "+TAG);
         View view = inflater.inflate(R.layout.recyclerview_movies, container, false);
         TextView emptyview = (TextView) view.findViewById(R.id.empty_view);
+        TextView categoryname = (TextView) view.findViewById(R.id.categorymoviesname);
+        categoryname.setText(R.string.PopularMovies);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_movies);
         if (mpopularMovies != null) {
             recyclerView.setVisibility(View.VISIBLE);

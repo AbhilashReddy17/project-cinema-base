@@ -42,6 +42,8 @@ public class TopRatedMoviesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recyclerview_movies, container, false);
+        TextView categoryname = (TextView) view.findViewById(R.id.categorymoviesname);
+        categoryname.setText(R.string.TopRatedMovies);
         TextView emptyview = (TextView) view.findViewById(R.id.empty_view);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_movies);
 

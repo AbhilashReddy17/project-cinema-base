@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     TVShowsFragmentAdapter tvsowadapter;
    static int mstate = CinemaBaseContract.Movies.MOVIES;
 
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -74,13 +75,27 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         } else {
             //loading movies into the model
-            TaskLoadingData task = new TaskLoadingData();
-            task.execute();
+            if(!CinemaBaseContract.API.equals("")) {
+                try {
+                    TaskLoadingData task = new TaskLoadingData();
+                    task.execute();
+                } catch (Exception e) {
+                    DataModel.DBMovies.mpopularMovies = null;
+                    DataModel.DBMovies.mrecentMovies = null;
+                    DataModel.DBMovies.mtopratedmovies = null;
+                    DataModel.DBMovies.mupcomingMovies = null;
+                    showMoviesScreen();
+                }
+            }
+            else{
+                DataModel.DBMovies.mpopularMovies = null;
+                DataModel.DBMovies.mrecentMovies = null;
+                DataModel.DBMovies.mtopratedmovies = null;
+                DataModel.DBMovies.mupcomingMovies = null;
+                showMoviesScreen();
+                Toast.makeText(this, "get some API key Cloner", Toast.LENGTH_LONG).show();
+            }
         }
-
-
-
-
     }
 
     private boolean isNetworkAvailable() {
@@ -175,12 +190,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         protected Void doInBackground(String... params) {
             Log.d(TAG, "doInBackground: entered");
 
-//18776af9228988fa403a2b0ad682e344
-//19c112a1364b89f6c5739a931f9fded6
 
 
             try {
-                TmdbApi tmdbapi = new TmdbApi("19c112a1364b89f6c5739a931f9fded6");
+
+                TmdbApi tmdbapi = new TmdbApi(CinemaBaseContract.API);
 
                 try {
                     TmdbMovies tmdbMovies = tmdbapi.getMovies();
@@ -209,10 +223,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
                 } catch (ResponseStatusException ex) {
                     Log.d(TAG, "doInBackground: exceptipon in connecting TV shows");
+
                 }
 
             } catch (ResponseStatusException ex) {
                 Log.d(TAG, "doInBackground: exception in connecting api");
+                showMoviesScreen();
             }
 
             return null;
@@ -224,7 +240,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             Log.d(TAG, "completed loading movies");
             appconfigureLayout.setVisibility(View.GONE);
             showMoviesScreen();
-
 
             //loading data into database
             TaskLoadingDatatoDB task = new TaskLoadingDatatoDB(MainActivity.this);

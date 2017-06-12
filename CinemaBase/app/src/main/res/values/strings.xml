@@ -13,5 +13,10 @@
     <string name="choose">What are you looking for ?</string>
     <string name="TVShows">TVShows</string>
     <string name="NoNetWork">Not connected to Internet, check your internet Connection.\n loaded last session data</string>
+    <string name="RecentMovies">Recent Movies</string>
+    <string name="rating">Rating :</string>
+    <string name="overview">Overview :</string>
+    <string name="revenue">Revenue :</string>
+    <string name="rlesedate">Release Date :</string>
 
 </resources>

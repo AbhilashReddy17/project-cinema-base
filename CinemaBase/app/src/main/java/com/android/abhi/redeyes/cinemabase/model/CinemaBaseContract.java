@@ -12,6 +12,7 @@ public class CinemaBaseContract {
     public static final String CONTENT_AUTHORITY = "com.android.abhi.redeyes.cinemabase.model.MyDataProvider";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
     public static final String IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+    public static final String API ="";
 
 
     public static class Movies {
