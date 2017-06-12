@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.android.abhi.redeyes.cinemabase.R;
 import com.android.abhi.redeyes.cinemabase.UI.MoviesRecyclerViewAdapter;
 import com.android.abhi.redeyes.cinemabase.UI.Offlinedata_recyclerviewAdapter;
+import com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract;
 import com.android.abhi.redeyes.cinemabase.model.DataModel;
 
 import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.RECENT_MOVIES;
@@ -26,6 +27,14 @@ public class RecentMoviesFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt("state", CinemaBaseContract.Movies.RECENT_MOVIES);
+        super.onSaveInstanceState(outState);
+
     }
 
     @Nullable

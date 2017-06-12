@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.android.abhi.redeyes.cinemabase.R;
 import com.android.abhi.redeyes.cinemabase.UI.FragmentHolder;
 
+import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.MOVIES;
 import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.POPULAR_MOVIES;
 import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.RECENT_MOVIES;
 import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.TOPRATED_MOVIES;
@@ -31,6 +32,12 @@ public class MoviesFragment extends Fragment {
     FragmentHolder mfragmentHolder;
 
     CardView mrecentmovies, mpopularmovies, mupcomingmovies, mtopratedmovies;
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt("state",MOVIES);
+        super.onSaveInstanceState(outState);
+    }
 
     @Nullable
     @Override

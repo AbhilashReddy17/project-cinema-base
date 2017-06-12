@@ -10,5 +10,8 @@
     <string name="dummytext">Curabitur in feugiat justo. Etiam pellentesque molestie ipsum, sed volutpat elit pretium eget. Fusce congue mi ac vestibulum pulvinar. Sed aliquet libero nec diam scelerisque, at finibus neque semper. Praesent sagittis finibus interdum. Curabitur ut diam sit amet dolor elementum pulvinar. Mauris tempor quis libero nec pretium. Sed porta maximus volutpat. Suspendisse porta finibus tincidunt. Fusce bibendum ligula sit amet neque aliquet faucibus. Vestibulum at nisl accumsan, viverra turpis ac, sagittis ipsum.</string>
     <string name="NoDataAvailable">No Data Available \n check your internet connection</string>
     <string name="imagedescription">movie or tv show poster</string>
+    <string name="choose">What are you looking for ?</string>
+    <string name="TVShows">TVShows</string>
+    <string name="NoNetWork">Not connected to Internet, check your internet Connection.\n loaded last session data</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.android.abhi.redeyes.cinemabase.R;
 import com.android.abhi.redeyes.cinemabase.UI.Offlinedata_recyclerviewAdapter;
 import com.android.abhi.redeyes.cinemabase.UI.TVShowsRecyclerViewAdapter;
+import com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract;
 import com.android.abhi.redeyes.cinemabase.model.DataModel;
 
 import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.TVShows.TOPRATEDTV_SHOWS;
@@ -23,10 +25,19 @@ import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.TVSho
 
 public class TopRatedTVShowsFragment extends Fragment {
 
+    public static final String TAG = TopRatedTVShowsFragment.class.getSimpleName();
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        Log.d(TAG, "onSaveInstanceState: "+CinemaBaseContract.TVShows.TV_SHOWS);
+        outState.putInt("state", CinemaBaseContract.TVShows.TV_SHOWS);
+        super.onSaveInstanceState(outState);
     }
 
     @Nullable

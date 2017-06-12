@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.android.abhi.redeyes.cinemabase.R;
 import com.android.abhi.redeyes.cinemabase.UI.fragments.SingleInstaceMovieFragment;
 
+import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.MOVIES;
 import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.POPULAR_MOVIES;
 import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.RECENT_MOVIES;
 import static com.android.abhi.redeyes.cinemabase.model.CinemaBaseContract.Movies.TOPRATED_MOVIES;
@@ -26,19 +27,37 @@ public class FragmentHolder extends AppCompatActivity {
     Fragment fragment;
     ImageView selectCategory;
     AlertDialog.Builder dialog;
+    public static int mfragmnetPosition;
+
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        outState.putInt("state",MOVIES);
+//        super.onSaveInstanceState(outState);
+//    }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+mfragmnetPosition = savedInstanceState.getInt("state");
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_holder);
 
         selectCategory = (ImageView) findViewById(R.id.selectCategory);
         dialog = new AlertDialog.Builder(this);
         movieFragment = new SingleInstaceMovieFragment();
-        int whichfragment = getIntent().getIntExtra("fragment", 1);
-
-        selectFragment(whichfragment);
+        if(savedInstanceState == null) {
+            int whichfragment = getIntent().getIntExtra("fragment", 1);
+            selectFragment(whichfragment);
+        }
+        else{
+            int whicfragment = mfragmnetPosition;
+            selectFragment(whicfragment);
+        }
 
 
         selectCategory.setOnClickListener(new View.OnClickListener() {
@@ -88,9 +107,10 @@ public class FragmentHolder extends AppCompatActivity {
                 transaction.commit();
                 break;
             case POPULAR_MOVIES:
+              //  fragment = getSupportFragmentManager().findFragmentByTag("popularmovies");
                 fragment = null;
                 fragment = movieFragment.singleInstaceFragment(POPULAR_MOVIES);
-                transaction.replace(R.id.moviefragment_container, fragment, "popularmovies");
+                transaction.replace(R.id.moviefragment_container, fragment, "poularmovies");
                 transaction.commit();
                 break;
             case TOPRATED_MOVIES:
@@ -102,3 +122,4 @@ public class FragmentHolder extends AppCompatActivity {
         }
     }
 }
+

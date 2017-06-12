@@ -1,6 +1,8 @@
 package com.android.abhi.redeyes.cinemabase.UI;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -37,6 +39,7 @@ public class TVShowsFragmentAdapter extends FragmentStatePagerAdapter {
                 return mfragmentInstance.singleInstaceFragment(POPULARTV_SHOWS);
         }
     }
+
 
     @Override
     public int getCount() {

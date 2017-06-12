@@ -1,6 +1,7 @@
 package com.android.abhi.redeyes.cinemabase.UI;
 
 import android.content.Context;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -26,9 +27,10 @@ public class MoviesFragmentAdapter extends FragmentStatePagerAdapter {
         this.context = context;
     }
 
+
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
+        switch(position){
             case MOVIES:
                 return mfragmentInstance.singleInstaceFragment(MOVIES);
 
@@ -42,9 +44,9 @@ public class MoviesFragmentAdapter extends FragmentStatePagerAdapter {
         return 1;
     }
 
-    @Override
+        @Override
     public CharSequence getPageTitle(int position) {
-        switch (position) {
+        switch(position){
             case MOVIES:
                 return context.getResources().getString(R.string.Movies);
             default:

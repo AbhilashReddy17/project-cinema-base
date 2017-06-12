@@ -3,22 +3,16 @@ package com.android.abhi.redeyes.cinemabase.UI;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.Loader;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -41,19 +35,23 @@ import info.movito.themoviedbapi.model.tv.TvSeries;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    ImageView selectCategory;
-    AlertDialog.Builder dialog;
     MoviesFragmentAdapter movieadapter;
     TVShowsFragmentAdapter tvsowadapter;
+   static int mstate = CinemaBaseContract.Movies.MOVIES;
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mstate = savedInstanceState.getInt("state");
+        Log.d(TAG, "onRestoreInstanceState: "+savedInstanceState.getInt("state"));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //configuring all required viems and assignments.
-        configureViews();
-
+        if(savedInstanceState!=null)
+        Log.d(TAG, "onCreate: bundle"+savedInstanceState.getInt("state"));
 
         if (!isNetworkAvailable()) {
             DataModel.TVShows.mpopularTvShows = null;
@@ -71,7 +69,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             getLoaderManager().initLoader(CinemaBaseContract.TVShows.POPULARTV_SHOWS, null, this);
             getLoaderManager().initLoader(CinemaBaseContract.TVShows.TOPRATEDTV_SHOWS, null, this);
 
-            Toast.makeText(this, getResources().getString(R.string.NoDataAvailable), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getResources().getString(R.string.NoNetWork), Toast.LENGTH_LONG).show();
+            showMoviesScreen();
+
         } else {
             //loading movies into the model
             TaskLoadingData task = new TaskLoadingData();
@@ -79,39 +79,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
 
 
-            final FragmentManager manager = getSupportFragmentManager();
-            final ViewPager pager = (ViewPager) findViewById(R.id.mainactivity_viewpager);
-            movieadapter = null;
-            movieadapter = new MoviesFragmentAdapter(manager, MainActivity.this);
-            pager.setAdapter(movieadapter);
-
-
-
-        //implementing the onclick listners for the respective categorys
-        selectCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String[] categorys = {"Movies", "TV Shows"};
-                dialog.setItems(categorys, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                movieadapter = null;
-                                movieadapter = new MoviesFragmentAdapter(manager, MainActivity.this);
-                                pager.setAdapter(movieadapter);
-                                break;
-                            case 1:
-                                tvsowadapter = null;
-                                tvsowadapter = new TVShowsFragmentAdapter(manager, MainActivity.this);
-                                pager.setAdapter(tvsowadapter);
-                                break;
-                        }
-                    }
-                });
-                dialog.show();
-            }
-        });
 
 
     }
@@ -122,11 +89,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
-    }
-
-    private void configureViews() {
-        selectCategory = (ImageView) findViewById(R.id.selectCategory);
-        dialog = new AlertDialog.Builder(this);
     }
 
     @Override
@@ -213,9 +175,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         protected Void doInBackground(String... params) {
             Log.d(TAG, "doInBackground: entered");
 
+//18776af9228988fa403a2b0ad682e344
+//19c112a1364b89f6c5739a931f9fded6
+
 
             try {
-                TmdbApi tmdbapi = new TmdbApi("18776af9228988fa403a2b0ad682e344");
+                TmdbApi tmdbapi = new TmdbApi("19c112a1364b89f6c5739a931f9fded6");
 
                 try {
                     TmdbMovies tmdbMovies = tmdbapi.getMovies();
@@ -258,11 +223,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         protected void onPostExecute(Void aVoid) {
             Log.d(TAG, "completed loading movies");
             appconfigureLayout.setVisibility(View.GONE);
+            showMoviesScreen();
+
 
             //loading data into database
             TaskLoadingDatatoDB task = new TaskLoadingDatatoDB(MainActivity.this);
             task.execute();
         }
+    }
+
+    private void showMoviesScreen() {
+        //showing first screen as movies
+        Intent intentmovies = new Intent(MainActivity.this,MoviesActivity.class);
+        intentmovies.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intentmovies.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intentmovies.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intentmovies);
     }
 
 }
